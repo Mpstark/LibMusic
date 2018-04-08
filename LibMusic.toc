@@ -1,0 +1,9 @@
+## Interface: 70300
+## Version: 1.0
+## Title: LibMusic
+## Author: mpstark
+## Notes: A library for handling music.
+## OptionalDeps: LibEasing
+
+LibMusic.lua
+LibMusicRegistry.lua

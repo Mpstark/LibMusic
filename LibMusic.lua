@@ -125,23 +125,15 @@ end
 startSong = function(handle)
     handle = string.lower(handle);
 
-    playingHandle = handle;
-    playingHandleStartTime = GetTime();
+    if (registry[handle] and registry[handle].length) then
+        playingHandle = handle;
+        playingHandleStartTime = GetTime();
 
-    if (registry[handle]) then
-        local length  = registry[handle].length;
+        destroyPlayingTimer();
+        playingTimer = C_Timer.NewTimer(registry[handle].length, songTimeout);
 
-        if (length) then
-            destroyPlayingTimer();
-            playingTimer = C_Timer.NewTimer(length, songTimeout);
-        end
-
-        print("LibMusic: SONG_STARTED", playingHandle, length);
-        LibMusic.callbacks:Fire("SONG_STARTED", playingHandle, length);
-
-        for k,v in pairs(registry[handle].tags) do
-            print("    ", k, "-", v);
-        end
+        print("LibMusic: SONG_STARTED", playingHandle, registry[handle].length);
+        LibMusic.callbacks:Fire("SONG_STARTED", playingHandle, registry[handle].length);
     end
 end
 
